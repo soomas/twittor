@@ -2,16 +2,14 @@ var url = window.location.href;
 var swLocation = '/twittor/sw.js';
 
 if ( navigator.serviceWorker ) {
-    if ( url.includes('localhost') ){
+    if ( url.includes('localhost') ) {
         swLocation = '/sw.js';
     }
 
     navigator.serviceWorker.register( swLocation );
 }
 
-
 // Referencias de jQuery
-
 var titulo      = $('#titulo');
 var nuevoBtn    = $('#nuevo-btn');
 var salirBtn    = $('#salir-btn');
@@ -28,13 +26,8 @@ var txtMensaje  = $('#txtMensaje');
 // El usuario, contiene el ID del héroe seleccionado
 var usuario;
 
-
-
-
 // ===== Codigo de la aplicación
-
 function crearMensajeHTML(mensaje, personaje) {
-
     var content =`
     <li class="animated fadeIn fast">
         <div class="avatar">
@@ -54,14 +47,10 @@ function crearMensajeHTML(mensaje, personaje) {
 
     timeline.prepend(content);
     cancelarBtn.click();
-
 }
-
-
 
 // Globals
 function logIn( ingreso ) {
-
     if ( ingreso ) {
         nuevoBtn.removeClass('oculto');
         salirBtn.removeClass('oculto');
@@ -75,39 +64,28 @@ function logIn( ingreso ) {
         avatarSel.removeClass('oculto');
 
         titulo.text('Seleccione Personaje');
-    
     }
-
 }
-
 
 // Seleccion de personaje
 avatarBtns.on('click', function() {
-
     usuario = $(this).data('user');
-
     titulo.text('@' + usuario);
-
     logIn(true);
-
 });
 
 // Boton de salir
 salirBtn.on('click', function() {
-
     logIn(false);
-
 });
 
 // Boton de nuevo mensaje
 nuevoBtn.on('click', function() {
-
     modal.removeClass('oculto');
     modal.animate({ 
         marginTop: '-=1000px',
         opacity: 1
     }, 200 );
-
 });
 
 // Boton de cancelar mensaje
@@ -123,7 +101,6 @@ cancelarBtn.on('click', function() {
 
 // Boton de enviar mensaje
 postBtn.on('click', function() {
-
     var mensaje = txtMensaje.val();
     if ( mensaje.length === 0 ) {
         cancelarBtn.click();
@@ -131,5 +108,4 @@ postBtn.on('click', function() {
     }
 
     crearMensajeHTML( mensaje, usuario );
-
 });
